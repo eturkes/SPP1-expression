@@ -1,0 +1,16 @@
+assets
+.git
+R
+results
+.Rproj.user
+storage
+tmp
+docker-compose.yml
+.env
+.gitignore
+LICENSE
+NOTICE
+README.md
+singularity.sh
+SPP1-expression.bib
+SPP1-expression.Rproj
