@@ -4,6 +4,7 @@ author:
   - name: "Emir Turkes [emir.turkes@eturkes.com] and Sebastiaan De Schepper [s.schepper@ucl.ac.uk]"
   - name: "UK Dementia Research Institute at UCL"
 date: '`r strftime(Sys.time(), format = "%B %d, %Y")`'
+bibliography: '../`r unlist(strsplit(getwd(), "/"))[4]`.bib'
 link-citations: true
 output:
   html_document:
@@ -39,9 +40,9 @@ div.tocify {width: 100%;}
 div.main-container {max-width: none; width: 100%;}
 </style>
 
-*This file is a part of [SPP1 Expression](https://github.com/eturkes/SPP1-expression).*
+*This file is a part of SPP1 Expression ([https://github.com/eturkes/SPP1-expression](https://github.com/eturkes/SPP1-expression)).*
 
-The data here is derived from @`r unlist(strsplit(getwd(), "/"))[length(unlist(strsplit(getwd(), "/"))) - 1]` and will be referenced using the name ``r unlist(strsplit(getwd(), "/"))[length(unlist(strsplit(getwd(), "/"))) - 1]``.
+The data here is derived from @zeiselMolecularArchitectureMouse2018 and will be referenced using the name `zeisel2018`.
 
 ```{r}
 # Some standard boilerplate.
@@ -120,4 +121,12 @@ sub_data@active.ident <- factor(
 )
 
 DotPlot(sub_data, features = genes, cols = c("blue", "red"), col.min = 0)
+```
+
+# References
+
+This is the concluding section of the document, where we output the `sessionInfo`, and create a bibliography for works cited.
+
+```{r}
+sessionInfo()
 ```
