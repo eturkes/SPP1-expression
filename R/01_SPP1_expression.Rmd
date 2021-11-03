@@ -62,7 +62,7 @@ The data here is derived from @`r unlist(strsplit(getwd(), "/"))[length(unlist(s
 
 # This section should be checked per document.
 # --------------------------------------------
-packages <- c("conflicted")
+packages <- c("conflicted", "scRNAseq", "Seurat")
 invisible(suppressPackageStartupMessages(lapply(packages, library, character.only = TRUE)))
 # --------------------------------------------
 
@@ -78,4 +78,14 @@ if (!dir.exists(cache_dir)) {
 
 knitr::opts_chunk$set(fig.width = 10, fig.height = 7)
 # ----------------------------------------------------------
+```
+
+# Analysis
+
+```{r}
+data <- ZeiselNervousData()
+data
+
+data <- as.Seurat(data, data = NULL)
+data
 ```

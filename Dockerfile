@@ -14,9 +14,21 @@
 
 FROM eturkes/r-docker-minimal:R4.1.1v1
 
-RUN Rscript -e "install.packages('rmarkdown')" \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        zlib1g-dev \
+        libxml2-dev \
+        libbz2-dev \
+        liblzma-dev \
+        libglpk-dev \
+    && Rscript -e "install.packages('rmarkdown')" \
         -e "install.packages('mime')" \
-    && rm -Rf /tmp/downloaded_packages/ \
+        -e "install.packages('Seurat')" \
+        -e "install.packages('BiocManager')" \
+        -e "BiocManager::install('scRNAseq')" \
+    && apt-get clean \
+    && rm -Rf /var/lib/apt/lists/ \
+        /tmp/downloaded_packages/ \
         /tmp/*.rds
 
 LABEL maintainer="Emir Turkes emir.turkes@eturkes.com"
