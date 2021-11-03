@@ -76,7 +76,7 @@ if (!dir.exists(cache_dir)) {
   dir.create(cache_dir, recursive = TRUE)
 }
 
-knitr::opts_chunk$set(fig.width = 10, fig.height = 7)
+knitr::opts_chunk$set(fig.width = 10, fig.height = 7, dpi = 300)
 # ----------------------------------------------------------
 ```
 
@@ -84,8 +84,40 @@ knitr::opts_chunk$set(fig.width = 10, fig.height = 7)
 
 ```{r}
 data <- ZeiselNervousData()
+rownames(data) <- rowData(data)$Gene
 data
 
 data <- as.Seurat(data, data = NULL)
 data
+
+data <- NormalizeData(data)
+
+genes <- c("Spp1", "Pdgfra", "Cd163", "Mrc1")
+
+cluster_names <- c(
+  "ABC", "VLMC1", "VLMC2", "VECA", "VSMCA", "VECV", "VECC",
+  "PER1", "PER2", "PER3",
+  "PVM1", "PVM2",
+  "MGL1", "MGL2", "MGL3"
+)
+
+sub_data <- data[ , data$ClusterName %in% cluster_names]
+sub_data@active.ident <- factor(
+  sub_data$ClusterName, levels = rev(cluster_names)
+)
+
+DotPlot(sub_data, features = genes, cols = c("blue", "red"), col.min = 0)
+
+cluster_names <- c(
+  "ABC", "VLMC1", "VLMC2", "VECA",
+  "PVM1", "PVM2",
+  "MGL1"
+)
+
+sub_data <- data[ , data$ClusterName %in% cluster_names]
+sub_data@active.ident <- factor(
+  sub_data$ClusterName, levels = rev(cluster_names)
+)
+
+DotPlot(sub_data, features = genes, cols = c("blue", "red"), col.min = 0)
 ```
