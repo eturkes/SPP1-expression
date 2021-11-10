@@ -103,10 +103,10 @@ cluster_names <- c(
 )
 
 sub_data <- data[ , data$ClusterName %in% cluster_names]
+
 sub_data@active.ident <- factor(
   sub_data$ClusterName, levels = rev(cluster_names)
 )
-
 DotPlot(sub_data, features = genes, cols = c("blue", "red"), col.min = 0)
 
 cluster_names <- c(
@@ -116,11 +116,17 @@ cluster_names <- c(
 )
 
 sub_data <- data[ , data$ClusterName %in% cluster_names]
+
 sub_data@active.ident <- factor(
   sub_data$ClusterName, levels = rev(cluster_names)
 )
-
 DotPlot(sub_data, features = genes, cols = c("blue", "red"), col.min = 0)
+
+sub_data@active.ident <- factor(
+  sub_data$ClusterName, levels = cluster_names
+)
+VlnPlot(sub_data, features = genes)
+RidgePlot(sub_data, features = genes)
 ```
 
 # References
