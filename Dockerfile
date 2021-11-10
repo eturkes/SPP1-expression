@@ -23,6 +23,7 @@ RUN apt-get update \
         libglpk-dev \
     && Rscript -e "install.packages('conflicted')" \
         -e "install.packages('rmarkdown')" \
+        -e "install.packages('markdown')" \
         -e "install.packages('rprojroot')" \
         -e "install.packages('mime')" \
         -e "install.packages('Seurat')" \
