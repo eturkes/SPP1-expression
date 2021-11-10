@@ -63,7 +63,7 @@ The data here is derived from @zeiselMolecularArchitectureMouse2018 and will be 
 
 # This section should be checked per document.
 # --------------------------------------------
-packages <- c("conflicted", "scRNAseq", "Seurat")
+packages <- c("conflicted", "scRNAseq", "Seurat", "ggplot2", "reshape2")
 invisible(suppressPackageStartupMessages(lapply(packages, library, character.only = TRUE)))
 # --------------------------------------------
 
@@ -81,7 +81,7 @@ knitr::opts_chunk$set(fig.width = 10, fig.height = 7, dpi = 300)
 # ----------------------------------------------------------
 ```
 
-# Analysis
+# Zeisel Analysis
 
 ```{r}
 data <- ZeiselNervousData()
@@ -127,6 +127,129 @@ sub_data@active.ident <- factor(
 )
 VlnPlot(sub_data, features = genes)
 RidgePlot(sub_data, features = genes)
+```
+
+# LPS-treated vs. WT Mouse PVM
+
+## Both HA and IgG
+
+```{r}
+data <- read.delim(file.path(assets_dir, "GSE156368-DEG.tsv"))
+colnames(data) <- c(
+  "Gene",
+  "SS_HA_1_1", "SS_HA_1_2", "SS_HA_2_1", "SS_HA_2_2", "SS_HA_3_1", "SS_HA_3_2",
+  "SS_IgG_1_1", "SS_IgG_1_2", "SS_IgG_2_1", "SS_IgG_2_2", "SS_IgG_3_1", "SS_IgG_3_2",
+  "LPS_HA_1_1", "LPS_HA_1_2", "LPS_HA_2_1", "LPS_HA_2_2",
+  "LPS_IgG_1_1", "LPS_IgG_1_2", "LPS_IgG_2_1", "LPS_IgG_2_2"
+)
+
+sub_data <- data[data$Gene %in% genes, ]
+sub_data <- melt(sub_data, "Gene")
+sub_data$condition <- factor(sub("\\_.*", "", sub_data$variable), c("SS", "LPS"))
+
+ggplot(sub_data, aes(condition, value)) +
+  geom_boxplot(aes(fill = condition), outlier.shape = NA) +
+  geom_point(size = 0.75) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  facet_wrap(~ Gene) +
+  NoLegend() +
+  xlab("Condition") +
+  ylab("Normalised Expression") +
+  scale_fill_manual(values = c("#619CFF", "#F8766D"))
+
+sub_data <- data[data$Gene == "Spp1", ]
+sub_data <- melt(sub_data, "Gene")
+sub_data$condition <- factor(sub("\\_.*", "", sub_data$variable), c("SS", "LPS"))
+
+ggplot(sub_data, aes(condition, value)) +
+  geom_boxplot(aes(fill = condition), outlier.shape = NA) +
+  geom_point(size = 0.75) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  facet_wrap(~ Gene) +
+  NoLegend() +
+  xlab("Condition") +
+  ylab("Normalised Expression") +
+  scale_fill_manual(values = c("#619CFF", "#F8766D"))
+```
+
+## HA Only
+
+```{r}
+keep <- grepl("HA", colnames(data))
+keep[1] <- TRUE
+sub_data <- data[ , keep]
+
+sub_data <- sub_data[sub_data$Gene %in% genes, ]
+sub_data <- melt(sub_data, "Gene")
+sub_data$condition <- factor(sub("\\_.*", "", sub_data$variable), c("SS", "LPS"))
+
+ggplot(sub_data, aes(condition, value)) +
+  geom_boxplot(aes(fill = condition), outlier.shape = NA) +
+  geom_point(size = 0.75) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  facet_wrap(~ Gene) +
+  NoLegend() +
+  xlab("Condition") +
+  ylab("Normalised Expression") +
+  scale_fill_manual(values = c("#619CFF", "#F8766D"))
+
+keep <- grepl("HA", colnames(data))
+keep[1] <- TRUE
+sub_data <- data[ , keep]
+
+sub_data <- sub_data[sub_data$Gene == "Spp1", ]
+sub_data <- melt(sub_data, "Gene")
+sub_data$condition <- factor(sub("\\_.*", "", sub_data$variable), c("SS", "LPS"))
+
+ggplot(sub_data, aes(condition, value)) +
+  geom_boxplot(aes(fill = condition), outlier.shape = NA) +
+  geom_point(size = 0.75) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  facet_wrap(~ Gene) +
+  NoLegend() +
+  xlab("Condition") +
+  ylab("Normalised Expression") +
+  scale_fill_manual(values = c("#619CFF", "#F8766D"))
+```
+
+## IgG Only
+
+```{r}
+keep <- grepl("IgG", colnames(data))
+keep[1] <- TRUE
+sub_data <- data[ , keep]
+
+sub_data <- sub_data[sub_data$Gene %in% genes, ]
+sub_data <- melt(sub_data, "Gene")
+sub_data$condition <- factor(sub("\\_.*", "", sub_data$variable), c("SS", "LPS"))
+
+ggplot(sub_data, aes(condition, value)) +
+  geom_boxplot(aes(fill = condition), outlier.shape = NA) +
+  geom_point(size = 0.75) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  facet_wrap(~ Gene) +
+  NoLegend() +
+  xlab("Condition") +
+  ylab("Normalised Expression") +
+  scale_fill_manual(values = c("#619CFF", "#F8766D"))
+
+keep <- grepl("IgG", colnames(data))
+keep[1] <- TRUE
+sub_data <- data[ , keep]
+
+sub_data <- sub_data[sub_data$Gene == "Spp1", ]
+sub_data <- melt(sub_data, "Gene")
+sub_data$condition <- factor(sub("\\_.*", "", sub_data$variable), c("SS", "LPS"))
+
+ggplot(sub_data, aes(condition, value)) +
+  geom_boxplot(aes(fill = condition), outlier.shape = NA) +
+  geom_point(size = 0.75) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  facet_wrap(~ Gene) +
+  NoLegend() +
+  xlab("Condition") +
+  ylab("Normalised Expression") +
+  scale_fill_manual(values = c("#619CFF", "#F8766D"))
 ```
 
 # References
