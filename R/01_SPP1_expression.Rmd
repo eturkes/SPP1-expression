@@ -93,7 +93,7 @@ data
 
 data <- NormalizeData(data)
 
-genes <- c("Spp1", "Pdgfra", "Cd163", "Mrc1")
+genes <- c("Spp1", "Pdgfra", "Pf4", "Cd163", "Mrc1")
 
 cluster_names <- c(
   "ABC", "VLMC1", "VLMC2", "VECA", "VSMCA", "VECV", "VECC",
