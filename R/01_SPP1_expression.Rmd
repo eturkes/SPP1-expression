@@ -135,6 +135,7 @@ RidgePlot(sub_data, features = genes)
 
 ```{r}
 data <- read.delim(file.path(assets_dir, "GSE156368-DEG.tsv"))
+rownames(data) <- data[ , 1]
 colnames(data) <- c(
   "Gene",
   "SS_HA_1_1", "SS_HA_1_2", "SS_HA_2_1", "SS_HA_2_2", "SS_HA_3_1", "SS_HA_3_2",
@@ -170,6 +171,16 @@ ggplot(sub_data, aes(condition, value)) +
   xlab("Condition") +
   ylab("Normalised Expression") +
   scale_fill_manual(values = c("#619CFF", "#F8766D"))
+
+sub_data <- data[ , -1]
+sub_data <- CreateSeuratObject(sub_data)
+sub_data$condition <- factor(
+  paste("PVM", sub("\\_.*", "", colnames(sub_data)), sep = "_"), c("PVM_SS", "PVM_LPS")
+)
+sub_data@active.ident <- factor(sub_data$condition, c("PVM_SS", "PVM_LPS"))
+
+VlnPlot(sub_data, genes, pt.size = 0.75)
+VlnPlot(sub_data, "Spp1", pt.size = 1.75) + NoLegend()
 ```
 
 ## HA Only
@@ -193,8 +204,6 @@ ggplot(sub_data, aes(condition, value)) +
   ylab("Normalised Expression") +
   scale_fill_manual(values = c("#619CFF", "#F8766D"))
 
-keep <- grepl("HA", colnames(data))
-keep[1] <- TRUE
 sub_data <- data[ , keep]
 
 sub_data <- sub_data[sub_data$Gene == "Spp1", ]
@@ -210,6 +219,17 @@ ggplot(sub_data, aes(condition, value)) +
   xlab("Condition") +
   ylab("Normalised Expression") +
   scale_fill_manual(values = c("#619CFF", "#F8766D"))
+
+sub_data <- data[ , keep]
+sub_data <- sub_data[ , -1]
+sub_data <- CreateSeuratObject(sub_data)
+sub_data$condition <- factor(
+  paste("PVM", sub("\\_.*", "", colnames(sub_data)), sep = "_"), c("PVM_SS", "PVM_LPS")
+)
+sub_data@active.ident <- factor(sub_data$condition, c("PVM_SS", "PVM_LPS"))
+
+VlnPlot(sub_data, genes, pt.size = 0.75)
+VlnPlot(sub_data, "Spp1", pt.size = 1.75) + NoLegend()
 ```
 
 ## IgG Only
@@ -233,8 +253,6 @@ ggplot(sub_data, aes(condition, value)) +
   ylab("Normalised Expression") +
   scale_fill_manual(values = c("#619CFF", "#F8766D"))
 
-keep <- grepl("IgG", colnames(data))
-keep[1] <- TRUE
 sub_data <- data[ , keep]
 
 sub_data <- sub_data[sub_data$Gene == "Spp1", ]
@@ -250,6 +268,17 @@ ggplot(sub_data, aes(condition, value)) +
   xlab("Condition") +
   ylab("Normalised Expression") +
   scale_fill_manual(values = c("#619CFF", "#F8766D"))
+
+sub_data <- data[ , keep]
+sub_data <- sub_data[ , -1]
+sub_data <- CreateSeuratObject(sub_data)
+sub_data$condition <- factor(
+  paste("PVM", sub("\\_.*", "", colnames(sub_data)), sep = "_"), c("PVM_SS", "PVM_LPS")
+)
+sub_data@active.ident <- factor(sub_data$condition, c("PVM_SS", "PVM_LPS"))
+
+VlnPlot(sub_data, genes, pt.size = 0.75)
+VlnPlot(sub_data, "Spp1", pt.size = 1.75) + NoLegend()
 ```
 
 # References
