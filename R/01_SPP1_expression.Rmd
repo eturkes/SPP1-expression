@@ -69,10 +69,9 @@ invisible(suppressPackageStartupMessages(lapply(packages, library, character.onl
 
 # Everything else in this chunk remains generally unchanged.
 # ----------------------------------------------------------
-data_name <- unlist(strsplit(getwd(), "/"))[length(unlist(strsplit(getwd(), "/")))] # Name of data.
 assets_dir <- file.path("..", "assets") # Backed up objects and data.
 
-cache_dir <- file.path(getwd(), "..", "tmp", "cache", data_name)
+cache_dir <- file.path(getwd(), "..", "tmp", "cache")
 if (!dir.exists(cache_dir)) {
   dir.create(cache_dir, recursive = TRUE)
 }
