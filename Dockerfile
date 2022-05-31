@@ -1,4 +1,4 @@
-# Copyright 2021 Emir Turkes, Sebastiaan De Schepper, UK DRI at UCL
+# Copyright 2021-2022 Emir Turkes, Sebastiaan De Schepper, UK DRI at UCL
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
