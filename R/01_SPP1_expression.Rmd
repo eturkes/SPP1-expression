@@ -63,8 +63,12 @@ The data here is derived from @zeiselMolecularArchitectureMouse2018 and will be 
 
 # This section should be checked per document.
 # --------------------------------------------
-packages <- c("conflicted", "scRNAseq", "Seurat", "ggplot2", "reshape2")
+packages <- c(
+  "conflicted", "scRNAseq", "Seurat", "ggplot2", "reshape2", "ExperimentHub"
+)
 invisible(suppressPackageStartupMessages(lapply(packages, library, character.only = TRUE)))
+
+setExperimentHubOption("ASK", FALSE)
 # --------------------------------------------
 
 # Everything else in this chunk remains generally unchanged.
