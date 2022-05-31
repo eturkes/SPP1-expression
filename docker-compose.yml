@@ -16,13 +16,13 @@ version: "3"
 
 services:
   all:
-    image: eturkes/spp1-expression:R4.1.1v5
+    image: eturkes/spp1-expression:R4.2.0v1
     volumes:
       - ".:/home/rstudio/SPP1-expression:rw"
     command: Rscript -e "source('/home/rstudio/SPP1-expression/R/run_all.R')"
 
   rstudio:
-    image: eturkes/spp1-expression:R4.1.1v5
+    image: eturkes/spp1-expression:R4.2.0v1
     volumes:
       - ".:/home/rstudio/SPP1-expression:rw"
     ports:

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM rocker/rstudio:4.1.1
+FROM rocker/rstudio:4.2.0
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -21,6 +21,7 @@ RUN apt-get update \
         libbz2-dev \
         liblzma-dev \
         libglpk-dev \
+        libgeos-c1v5 \
     && Rscript -e "install.packages('conflicted')" \
         -e "install.packages('rmarkdown')" \
         -e "install.packages('markdown')" \

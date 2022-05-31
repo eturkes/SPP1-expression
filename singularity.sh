@@ -16,7 +16,7 @@
 
 # Shell script for building a Singularity image from Docker Hub and running it.
 
-singularity pull spp1-expression.simg docker://eturkes/spp1-expression:R4.1.1v5
+singularity pull spp1-expression.simg docker://eturkes/spp1-expression:R4.2.0v1
 
 if [ "$1" = "all" ]; then
     singularity exec \
