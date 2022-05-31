@@ -81,6 +81,11 @@ if (!dir.exists(cache_dir)) {
 
 knitr::opts_chunk$set(fig.width = 10, fig.height = 7, dpi = 300)
 # ----------------------------------------------------------
+
+# Modify this to look at your genes of interest.
+# ----------------------------------------------
+genes <- c("Spp1", "Pdgfra", "Pf4", "Cd163", "Mrc1")
+# ----------------------------------------------
 ```
 
 # Zeisel Analysis
@@ -94,8 +99,6 @@ data <- as.Seurat(data, data = NULL)
 data
 
 data <- NormalizeData(data)
-
-genes <- c("Spp1", "Pdgfra", "Pf4", "Cd163", "Mrc1")
 
 cluster_names <- c(
   "ABC", "VLMC1", "VLMC2", "VECA", "VSMCA", "VECV", "VECC",
